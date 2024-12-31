@@ -23,7 +23,7 @@ export const EXPERIENCE: ExperienceProp[] = [
   },
   {
     dates: "2021 - 2023",
-    title: "Full Stack Developer",
+    title: "Fullstack Developer",
     company: "Hölmetrics",
     companyUrl: "https://holmetrics.com/",
     description:
