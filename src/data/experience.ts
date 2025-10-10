@@ -1,6 +1,22 @@
 import type { Props as ExperienceProp } from "../components/experience/props";
 
 export const EXPERIENCE: ExperienceProp[] = [
+    {
+    dates: "2025 - Now",
+    title: "Senior Mobile Engineer",
+    company: "Intellitix",
+    companyUrl: "https://www.intellitix.com/",
+    description:
+      "Intellitix is a global leader in smart event technology, providing RFID-based solutions for access control, cashless payments, and real-time analytics to enhance live event experiences worldwide.",
+    technologies: [
+      "Typescript",
+      "React Native",
+      "React",
+      "Kotlin",
+      "Swift"
+    ],
+    logo: "/logos/intellitix.jpeg",
+  },
   {
     dates: "2023 — 2025",
     title: "Software Developer / Team Lead",
