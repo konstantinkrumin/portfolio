@@ -1,0 +1,62 @@
+<div
+  class="fixed right-6 top-6 z-50 flex items-center gap-2"
+  aria-label="Site preferences"
+>
+  <button
+    type="button"
+    id="language-toggle"
+    aria-label="Switch to Russian"
+    data-locale="en"
+    data-ccursor
+    class="language-toggle relative flex h-9 w-[4.5rem] items-center rounded-full border border-stone-300/60 bg-stone-100/80 p-1 shadow-lg shadow-stone-900/5 backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-500 dark:border-neutral-700/60 dark:bg-neutral-900/80 dark:shadow-black/20"
+  >
+    <span
+      class="pointer-events-none absolute inset-0 flex items-center justify-between px-2.5 text-[10px] font-bold tracking-wider"
+    >
+      <span
+        class="lang-label-en text-stone-800 transition-opacity duration-300 dark:text-neutral-200"
+        >EN</span
+      >
+      <span
+        class="lang-label-ru text-stone-400 transition-opacity duration-300 dark:text-neutral-500"
+        >RU</span
+      >
+    </span>
+    <span
+      class="lang-thumb pointer-events-none relative z-10 h-7 w-7 rounded-full bg-white shadow-md ring-1 ring-stone-900/5 transition-transform duration-300 ease-out dark:bg-neutral-700 dark:ring-white/10"
+    ></span>
+  </button>
+  <slot />
+</div>
+
+<style>
+  .language-toggle[data-locale="en"] .lang-label-en {
+    opacity: 1;
+  }
+
+  .language-toggle[data-locale="en"] .lang-label-ru {
+    opacity: 0.45;
+  }
+
+  .language-toggle[data-locale="en"] .lang-thumb {
+    transform: translateX(0);
+  }
+
+  .language-toggle[data-locale="ru"] .lang-label-en {
+    opacity: 0.45;
+  }
+
+  .language-toggle[data-locale="ru"] .lang-label-ru {
+    opacity: 1;
+  }
+
+  .language-toggle[data-locale="ru"] .lang-thumb {
+    transform: translateX(calc(100% + 0.125rem));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lang-thumb {
+      transition: none;
+    }
+  }
+</style>

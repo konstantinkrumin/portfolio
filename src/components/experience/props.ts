@@ -1,4 +1,5 @@
 export interface Props {
+  index: number;
   dates: string;
   title: string;
   company: string;

@@ -2,12 +2,16 @@
 import Component from "../components/Component.astro";
 import Experience from "../components/experience/index.astro";
 import Nav from "../components/nav/index.astro";
-import { EXPERIENCE } from "../data/experience";
+import { CONTENT, DEFAULT_LOCALE, getExperience } from "../i18n";
 import { SOCIALS } from "../data/socials";
 import Layout from "../layouts/Layout.astro";
+
+const locale = DEFAULT_LOCALE;
+const content = CONTENT[locale];
+const experience = getExperience(locale);
 ---
 
-<Layout title="Konstantin Krumin">
+<Layout title={content.meta.title} description={content.meta.description}>
   <div class="relative hero isolate z-10">
     <div
       class="mx-auto min-h-screen max-w-screen-2xl px-6 py-12 font-sans md:px-12 md:py-20 lg:px-24 lg:py-0"
@@ -22,7 +26,8 @@ import Layout from "../layouts/Layout.astro";
             >
               <img
                 src="/avatar.jpg"
-                alt="Konstantin Krumin"
+                alt={content.meta.title}
+                data-i18n-alt="meta.title"
                 class="h-16 w-16"
               />
               <div>
@@ -30,12 +35,13 @@ import Layout from "../layouts/Layout.astro";
                   href="/"
                   class="block bg-gradient-to-b from-stone-900 to-stone-500 bg-clip-text text-4xl font-bold tracking-tight text-transparent lg:text-5xl dark:from-neutral-50 dark:to-neutral-400 dark:bg-opacity-50"
                 >
-                  <h1>Konstantin Krumin</h1>
+                  <h1 data-i18n="meta.title">{content.meta.title}</h1>
                 </a>
                 <h2
                   class="mt-2 text-sm font-medium text-stone-600 lg:text-lg dark:text-neutral-400"
+                  data-i18n="header.tagline"
                 >
-                  Senior Developer @ Intellitix
+                  {content.header.tagline}
                 </h2>
 
                 <div
@@ -44,8 +50,9 @@ import Layout from "../layouts/Layout.astro";
                   {
                     SOCIALS.length && (
                       <ul
+                        id="social-links"
                         class="flex items-center gap-x-3"
-                        aria-label="Social media"
+                        aria-label={content.header.socialAria}
                       >
                         {SOCIALS.map((social) => (
                           <li class="rounded p-1 text-xs" data-ccursor>
@@ -54,7 +61,10 @@ import Layout from "../layouts/Layout.astro";
                               href={social.url}
                               target="_blank"
                               rel="noreferrer noopener"
-                              aria-label={`${social.name} (opens in a new tab)`}
+                              data-i18n-social={social.name}
+                              aria-label={content.header.socialLinkAria(
+                                social.name,
+                              )}
                             >
                               <span class="sr-only">{social.name}</span>
                               {<Component component={social.icon} />}
@@ -69,7 +79,7 @@ import Layout from "../layouts/Layout.astro";
                     href="mailto:konstantin.krumin@gmail.com"
                     class="group inline-flex items-center gap-x-2 rounded-md border border-stone-300/70 bg-white/70 p-2 px-3 py-2.5 text-sm font-semibold text-stone-800 shadow backdrop-blur-xl transition-all hover:border-stone-400/80 dark:border-neutral-700 dark:border-opacity-50 dark:bg-neutral-400/10 dark:text-white dark:hover:border-opacity-0"
                   >
-                    <span>Email me</span>
+                    <span data-i18n="header.emailMe">{content.header.emailMe}</span>
                     <span
                       class="h-2 w-2 animate-pulse rounded-full bg-green-400 duration-1000"
                     >
@@ -79,7 +89,7 @@ import Layout from "../layouts/Layout.astro";
               </div>
             </div>
 
-            <Nav />
+            <Nav locale={locale} />
           </div>
         </header>
 
@@ -87,96 +97,81 @@ import Layout from "../layouts/Layout.astro";
           <section
             id="about"
             class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24"
-            aria-label="About me"
+            aria-label={content.sections.about.aria}
           >
             <div
               class="sticky top-0 z-20 -mx-6 mb-4 w-screen px-6 py-3 backdrop-blur-lg md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0"
             >
               <h2
                 class="text-sm font-bold uppercase tracking-widest text-stone-800 lg:sr-only dark:text-neutral-200"
+                data-i18n="sections.about.title"
               >
-                About
+                {content.sections.about.title}
               </h2>
             </div>
             <div>
               <div class="relative z-10 mb-4 space-y-4 text-stone-900 dark:text-neutral-300">
-                <p>
-                  I'm a senior software engineer focused on mobile and frontend
-                  development, building production apps with TypeScript, React
-                  Native, and React. I work across the full stack when needed —
-                  from intuitive UIs to the APIs and integrations behind them —
-                  with experience shipping reliable software in fast-moving,
-                  real-time environments.
-                </p>
-
-                <p>
-                  Currently at Intellitix, building event technology used on-site
-                  at scale. Open to interesting projects and conversations
-                  around mobile, frontend, and product engineering.
-                </p>
+                <p data-i18n="about.p1">{content.about.p1}</p>
+                <p data-i18n="about.p2">{content.about.p2}</p>
               </div>
             </div>
           </section>
           <section
             id="experience"
             class="mb-0 scroll-mt-16 md:mb-0 lg:mb-0 lg:scroll-mt-24"
-            aria-label="Work experience"
+            aria-label={content.sections.experience.aria}
           >
             <div
               class="sticky top-0 z-20 -mx-6 mb-4 w-screen px-6 py-3 backdrop-blur-lg md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0"
             >
               <h2
                 class="text-sm font-bold uppercase tracking-widest text-stone-800 lg:sr-only dark:text-neutral-200"
+                data-i18n="sections.experience.title"
               >
-                Experience
+                {content.sections.experience.title}
               </h2>
             </div><div>
               <ol class="group/list space-y-12">
-                {EXPERIENCE.map((experience) => <Experience {...experience} />)}
+                {
+                  experience.map((entry) => (
+                    <Experience {...entry} />
+                  ))
+                }
               </ol>
             </div>
           </section>
           <section
             id="resume"
             class="mt-6 scroll-mt-16 pb-8 sm:grid sm:grid-cols-8 sm:gap-8 md:gap-4 lg:mt-10 lg:scroll-mt-24 lg:pb-24"
-            aria-label="Resume"
+            aria-label={content.sections.resume.aria}
           >
-            <h2 class="sr-only">Resume</h2>
+            <h2 class="sr-only" data-i18n="sections.resume.title">
+              {content.sections.resume.title}
+            </h2>
             <div class="hidden sm:block sm:col-span-2" aria-hidden="true"></div>
             <div class="sm:col-span-6 lg:flex lg:justify-end">
               <a
                 data-ccursor
+                data-i18n="sections.resume.link"
                 class="group -ml-3 inline-flex items-center rounded px-3 py-2 font-semibold leading-tight text-stone-900 dark:text-neutral-200 lg:-mr-3"
-              aria-label="View Full Résumé"
-              target="_blank"
-              rel="noreferrer noopener"
-              href="./resume.pdf"
-            >
-              <span>
-                <span
-                  class="border-b border-transparent pb-px transition group-hover:border-stone-500 motion-reduce:transition-none dark:group-hover:border-neutral-300"
+                aria-label={content.sections.resume.linkAria}
+                target="_blank"
+                rel="noreferrer noopener"
+                href="./resume.pdf"
+              >
+                {content.sections.resume.link}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  class="ml-1 inline-block h-4 w-4 shrink-0 -translate-y-px transition-transform group-hover:translate-x-2 group-focus-visible:translate-x-2 motion-reduce:transition-none"
+                  aria-hidden="true"
+                  ><path
+                    fill-rule="evenodd"
+                    d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
+                    clip-rule="evenodd"></path></svg
                 >
-                  View Full
-                </span>
-                <span class="whitespace-nowrap">
-                  <span
-                    class="border-b border-transparent pb-px transition group-hover:border-stone-500 motion-reduce:transition-none dark:group-hover:border-neutral-300"
-                  >
-                    Resume
-                  </span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    class="ml-1 inline-block h-4 w-4 shrink-0 -translate-y-px transition-transform group-hover:translate-x-2 group-focus-visible:translate-x-2 motion-reduce:transition-none"
-                    aria-hidden="true"
-                    ><path
-                      fill-rule="evenodd"
-                      d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
-                      clip-rule="evenodd"></path></svg
-                ></span
-              ></span
-            ></a>
+              </a>
             </div>
           </section>
         </main>
@@ -225,10 +220,4 @@ import Layout from "../layouts/Layout.astro";
     position: relative;
     z-index: 1;
   }
-
-  /*
-  .hero {
-    animation: fadeIn 3s;
-  }
-   */
 </style>

@@ -1,4 +1,5 @@
 import contextCursor from "../libs/context-cursor/index";
+import { initLanguage } from "./language";
 import { initTheme } from "./theme";
 
 contextCursor({
@@ -6,6 +7,7 @@ contextCursor({
 });
 
 initTheme();
+initLanguage();
 
 function initScrollSpy() {
   const sections = Array.from(
