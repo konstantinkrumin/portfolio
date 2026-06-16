@@ -12,6 +12,9 @@ function initScrollSpy() {
 
   if (!sections.length || !navLinks.length) return;
 
+  let isNavScrolling = false;
+  let scrollEndTimeout: ReturnType<typeof setTimeout> | undefined;
+
   function setActive(id: string) {
     navLinks.forEach((link) => {
       link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
@@ -26,7 +29,6 @@ function initScrollSpy() {
     const scrollBottom = window.scrollY + window.innerHeight;
     const pageBottom = document.documentElement.scrollHeight;
 
-    // When scrolled to the bottom, highlight the last section (Resume)
     if (scrollBottom >= pageBottom - 2) {
       return sections[sections.length - 1].id;
     }
@@ -44,24 +46,50 @@ function initScrollSpy() {
   }
 
   function updateFromScroll() {
+    if (isNavScrolling) return;
     setActive(getActiveSectionId());
+  }
+
+  function finishNavScroll() {
+    isNavScrolling = false;
+    updateFromScroll();
+  }
+
+  function scheduleScrollEnd() {
+    if (scrollEndTimeout) clearTimeout(scrollEndTimeout);
+    scrollEndTimeout = setTimeout(finishNavScroll, 150);
   }
 
   navLinks.forEach((link) => {
     link.addEventListener("click", () => {
       const href = link.getAttribute("href");
-      if (href?.startsWith("#")) {
-        setActive(href.slice(1));
-      }
+      if (!href?.startsWith("#")) return;
+
+      isNavScrolling = true;
+      setActive(href.slice(1));
+      scheduleScrollEnd();
     });
   });
 
-  window.addEventListener("scroll", updateFromScroll, { passive: true });
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (isNavScrolling) {
+        scheduleScrollEnd();
+        return;
+      }
+      updateFromScroll();
+    },
+    { passive: true },
+  );
+
   window.addEventListener("hashchange", () => {
     const id = location.hash.slice(1);
-    if (sections.some((section) => section.id === id)) {
-      setActive(id);
-    }
+    if (!sections.some((section) => section.id === id)) return;
+
+    isNavScrolling = true;
+    setActive(id);
+    scheduleScrollEnd();
   });
 
   const hashId = location.hash.slice(1);

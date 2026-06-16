@@ -10,9 +10,9 @@ import { NAV_ITEMS } from "../../data/nav";
           <a
             data-nav-link
             href={href}
-            class="nav-link group flex items-center py-2 text-xs font-bold uppercase tracking-widest text-neutral-500 transition hover:text-neutral-200 focus-visible:text-neutral-200"
+            class="nav-link group flex items-center py-2 text-xs font-bold uppercase tracking-widest text-neutral-500 transition-colors duration-300 ease-out hover:text-neutral-200 focus-visible:text-neutral-200"
           >
-            <span class="nav-indicator mr-4 h-px w-8 bg-neutral-700 transition group-hover:bg-neutral-200 group-focus-visible:bg-neutral-200" />
+            <span class="nav-indicator mr-4 h-px w-8 bg-neutral-700 transition-all duration-300 ease-out group-hover:bg-neutral-200 group-focus-visible:bg-neutral-200" />
             {label}
           </a>
         </li>
@@ -24,10 +24,21 @@ import { NAV_ITEMS } from "../../data/nav";
 <style>
   .nav-link.active {
     color: rgb(229 229 229);
+    transition: color 0.3s ease-out;
   }
 
   .nav-link.active .nav-indicator {
     width: 4rem;
     background-color: rgb(229 229 229);
+    transition:
+      width 0.3s ease-out,
+      background-color 0.3s ease-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-link,
+    .nav-indicator {
+      transition: none;
+    }
   }
 </style>
