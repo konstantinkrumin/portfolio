@@ -1,0 +1,33 @@
+---
+import { NAV_ITEMS } from "../../data/nav";
+---
+
+<nav class="mt-16 hidden lg:block" aria-label="In-page navigation">
+  <ul class="flex flex-col gap-1">
+    {
+      NAV_ITEMS.map(({ label, href }) => (
+        <li>
+          <a
+            data-nav-link
+            href={href}
+            class="nav-link group flex items-center py-2 text-xs font-bold uppercase tracking-widest text-neutral-500 transition hover:text-neutral-200 focus-visible:text-neutral-200"
+          >
+            <span class="nav-indicator mr-4 h-px w-8 bg-neutral-700 transition group-hover:bg-neutral-200 group-focus-visible:bg-neutral-200" />
+            {label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .nav-link.active {
+    color: rgb(229 229 229);
+  }
+
+  .nav-link.active .nav-indicator {
+    width: 4rem;
+    background-color: rgb(229 229 229);
+  }
+</style>
