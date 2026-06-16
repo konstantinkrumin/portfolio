@@ -1,0 +1,25 @@
+:root {
+  color-scheme: light;
+  --nav-active: rgb(28 25 23);
+  --nav-indicator: rgb(214 211 209);
+  --nav-indicator-hover: rgb(87 83 78);
+}
+
+.dark {
+  color-scheme: dark;
+  --nav-active: rgb(229 229 229);
+  --nav-indicator: rgb(64 64 64);
+  --nav-indicator-hover: rgb(229 229 229);
+}
+
+html {
+  transition:
+    background-color 500ms ease,
+    color 500ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    transition: none;
+  }
+}

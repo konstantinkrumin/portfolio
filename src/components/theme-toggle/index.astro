@@ -1,0 +1,65 @@
+<button
+  type="button"
+  id="theme-toggle"
+  aria-label="Toggle color theme"
+  aria-pressed="true"
+  data-theme="dark"
+  data-ccursor
+  class="theme-toggle group fixed right-6 top-6 z-50 flex h-9 w-[4.25rem] items-center rounded-full border border-stone-300/60 bg-stone-100/80 p-1 shadow-lg shadow-stone-900/5 backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-500 dark:border-neutral-700/60 dark:bg-neutral-900/80 dark:shadow-black/20"
+>
+  <span class="pointer-events-none absolute inset-0 flex items-center justify-between px-2.5">
+    <svg
+      class="h-3.5 w-3.5 text-amber-500 transition-opacity duration-300 dark:opacity-40"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+      ></path>
+    </svg>
+    <svg
+      class="h-3.5 w-3.5 text-indigo-300 opacity-40 transition-opacity duration-300 dark:opacity-100"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </span>
+  <span
+    class="theme-thumb pointer-events-none relative z-10 h-7 w-7 rounded-full bg-white shadow-md ring-1 ring-stone-900/5 transition-transform duration-300 ease-out dark:translate-x-[calc(100%+0.125rem)] dark:bg-neutral-700 dark:ring-white/10"
+  ></span>
+</button>
+
+<style>
+  .theme-toggle[data-theme="light"] svg:first-of-type {
+    opacity: 1;
+  }
+
+  .theme-toggle[data-theme="light"] svg:last-of-type {
+    opacity: 0.35;
+  }
+
+  .theme-toggle[data-theme="dark"] svg:first-of-type {
+    opacity: 0.35;
+  }
+
+  .theme-toggle[data-theme="dark"] svg:last-of-type {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .theme-thumb {
+      transition: none;
+    }
+  }
+</style>

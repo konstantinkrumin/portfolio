@@ -32,6 +32,7 @@ const SparklesCore = (props: ParticlesProps) => {
   } = props;
 
   const [init, setInit] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
   const controls = useAnimation();
 
   useEffect(() => {
@@ -42,10 +43,26 @@ const SparklesCore = (props: ParticlesProps) => {
     });
   }, []);
 
+  useEffect(() => {
+    const readTheme = () =>
+      setTheme(
+        document.documentElement.classList.contains("dark") ? "dark" : "light",
+      );
+
+    readTheme();
+    window.addEventListener("themechange", readTheme);
+
+    return () => window.removeEventListener("themechange", readTheme);
+  }, []);
+
+  const activeParticleColor =
+    theme === "dark" ? particleColor || "#ffffff" : "#A8A29E";
+  const activeOpacity = theme === "dark" ? opacity || 0.2 : 0.45;
+
   const particlesLoaded = async (container?: Container) => {
     if (container) {
       controls.start({
-        opacity: opacity || 1,
+        opacity: activeOpacity,
         transition: {
           duration: 1,
           delay: 2,
@@ -59,6 +76,7 @@ const SparklesCore = (props: ParticlesProps) => {
       {init && (
         <Particles
           id={id || "tsparticles"}
+          key={theme}
           className={cn("h-full w-full")}
           particlesLoaded={particlesLoaded}
           options={{
@@ -125,7 +143,7 @@ const SparklesCore = (props: ParticlesProps) => {
                 },
               },
               color: {
-                value: particleColor || "#ffffff",
+                value: activeParticleColor,
                 animation: {
                   h: {
                     count: 0,

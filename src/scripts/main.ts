@@ -1,8 +1,11 @@
 import contextCursor from "../libs/context-cursor/index";
+import { initTheme } from "./theme";
 
 contextCursor({
   radius: 25,
 });
+
+initTheme();
 
 function initScrollSpy() {
   const sections = Array.from(

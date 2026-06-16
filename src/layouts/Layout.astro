@@ -1,5 +1,7 @@
 ---
 import SparklesCore from "../components/SparklesCore.tsx";
+import ThemeToggle from "../components/theme-toggle/index.astro";
+import "../styles/theme.css";
 
 interface Props {
   title: string;
@@ -9,7 +11,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Senior Fullstack Developer" />
@@ -17,10 +19,26 @@ const { title } = Astro.props;
     <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersLight = window.matchMedia(
+          "(prefers-color-scheme: light)",
+        ).matches;
+
+        if (stored === "light" || (!stored && prefersLight)) {
+          document.documentElement.classList.remove("dark");
+          document.documentElement.style.colorScheme = "light";
+        } else {
+          document.documentElement.classList.add("dark");
+          document.documentElement.style.colorScheme = "dark";
+        }
+      })();
+    </script>
   </head>
 
   <body
-    class="bg-black leading-relaxed text-neutral-200 tracking-wide antialiased selection:bg-neutral-300 selection:text-neutral-900 z-10 relative"
+    class="relative z-10 bg-stone-50 leading-relaxed tracking-wide text-stone-800 antialiased transition-[background-color,color] duration-500 selection:bg-stone-300 selection:text-stone-900 dark:bg-black dark:text-neutral-200 dark:selection:bg-neutral-300 dark:selection:text-neutral-900"
   >
     <SparklesCore
       client:idle
@@ -33,6 +51,7 @@ const { title } = Astro.props;
       className="w-full h-full fixed z-0"
       particleColor="#FFFFFF"
     />
+    <ThemeToggle />
     <slot />
     <script src="../scripts/main.ts"></script>
   </body>
