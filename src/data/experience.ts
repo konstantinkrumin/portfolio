@@ -1,20 +1,19 @@
 import type { Props as ExperienceProp } from "../components/experience/props";
 
 export const EXPERIENCE: ExperienceProp[] = [
-    {
+  {
     dates: "2025 - Now",
     title: "Senior Mobile Engineer",
     company: "Intellitix",
     companyUrl: "https://www.intellitix.com/",
     description:
-      "Intellitix is a global leader in smart event technology, providing RFID-based solutions for access control, cashless payments, and real-time analytics to enhance live event experiences worldwide.",
-    technologies: [
-      "Typescript",
-      "React Native",
-      "React",
-      "Kotlin",
-      "Swift"
+      "Intellitix provides RFID access control, cashless POS, and event operations software for festivals, sports venues, and conventions — high-throughput environments where real-time reliability is critical.",
+    highlights: [
+      "Build React Native apps for POS and access control with RFID entry validation and cashless payments",
+      "Develop React and TypeScript web apps for event configuration and operational dashboards",
+      "Integrate RFID systems and native Kotlin/Swift for performance-critical functionality",
     ],
+    technologies: ["Typescript", "React Native", "React", "Kotlin", "Swift"],
     logo: "/logos/intellitix.jpeg",
   },
   {
@@ -23,7 +22,13 @@ export const EXPERIENCE: ExperienceProp[] = [
     company: "BorderPass",
     companyUrl: "https://www.borderpass.ca/",
     description:
-      "BorderPass is a fast-growing legal tech startup dedicated to simplifying the visa journey for international students in Canada through innovative technology solutions.",
+      "BorderPass is a legal tech startup simplifying the visa journey for international students in Canada. I progressed from full-stack developer to team lead, owning immigration workflows end to end.",
+    highlights: [
+      "Led developers delivering immigration application flows from requirements through deployment",
+      "Revamped application processing streams — UI and business logic for a faster, clearer experience",
+      "Built Permanent Residency flow with Stripe payments and integrated GoodData analytics",
+      "Established engineering practices through code reviews, mentoring, and sprint planning",
+    ],
     technologies: [
       "Typescript",
       "React",
@@ -43,7 +48,12 @@ export const EXPERIENCE: ExperienceProp[] = [
     company: "Hölmetrics",
     companyUrl: "https://holmetrics.com/",
     description:
-      "Hölmetrics is a data-analytics company that provides enterprise-level employee experience and organizational performance analysis. The company enables leaders to make real-time data-informed decisions, driving both employee satisfaction and business performance.",
+      "Hölmetrics delivers enterprise employee experience and organizational performance analytics, helping leaders make real-time, data-informed decisions.",
+    highlights: [
+      "Led action plans — HR data visualizations with full-stack UI and backend API development",
+      "Built interactive Highcharts dashboards for organizational data analysis",
+      "Owned UI, backend APIs, and AWS infrastructure across the development lifecycle",
+    ],
     technologies: [
       "Typescript",
       "Javascript",
@@ -52,6 +62,7 @@ export const EXPERIENCE: ExperienceProp[] = [
       "Node.js",
       "Express.js",
       "TailwindCSS",
+      "Highcharts",
       "MySQL",
       "AWS",
     ],
@@ -63,7 +74,12 @@ export const EXPERIENCE: ExperienceProp[] = [
     company: "ICL Services",
     companyUrl: "https://icl-services.com/eng/",
     description:
-      "ICL Services is a leading project-based outsourcing company in Russia, providing IT solutions to a diverse range of industries. Known for its expertise and innovation, the company serves as a trusted partner to businesses across the region.",
+      "ICL Services is a project-based IT outsourcing company. As sole frontend developer, I delivered admin and customer-facing flows from Figma prototypes through production.",
+    highlights: [
+      "Built admin dashboard from scratch — claims, complaints, and real-time chat",
+      "Developed customer inquiry flows aligned with business analysts and backend engineers",
+      "Shipped responsive UI from Figma using React, TypeScript, Redux, and Material UI",
+    ],
     technologies: [
       "Typescript",
       "Javascript",

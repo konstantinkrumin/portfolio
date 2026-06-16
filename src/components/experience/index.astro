@@ -2,8 +2,16 @@
 import type { Props } from "./props";
 import IconArrow from "../icons/arrow.astro";
 
-const { dates, title, company, companyUrl, description, technologies, logo } =
-  Astro.props;
+const {
+  dates,
+  title,
+  company,
+  companyUrl,
+  description,
+  highlights,
+  technologies,
+  logo,
+} = Astro.props;
 ---
 
 <li>
@@ -54,9 +62,21 @@ const { dates, title, company, companyUrl, description, technologies, logo } =
           </a>
         </div>
       </h3>
-      <p class="mt-2 text-sm leading-normal">
+      <p class="mt-2 text-sm leading-normal text-neutral-400">
         {description}
       </p>
+      {
+        highlights.length > 0 && (
+          <ul class="mt-3 space-y-1.5 text-sm leading-normal text-neutral-400">
+            {highlights.map((highlight) => (
+              <li class="flex gap-2">
+                <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-neutral-500" />
+                <span>{highlight}</span>
+              </li>
+            ))}
+          </ul>
+        )
+      }
       {
         technologies.length && (
           <ul class="mt-2 flex flex-wrap" aria-label="Technologies used">
