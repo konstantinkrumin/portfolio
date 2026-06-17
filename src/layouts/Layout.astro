@@ -27,20 +27,28 @@ const {
     <script is:inline>
       (function () {
         const storedTheme = localStorage.getItem("theme");
-        const prefersLight = window.matchMedia(
-          "(prefers-color-scheme: light)",
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
         ).matches;
 
-        if (storedTheme === "light" || (!storedTheme && prefersLight)) {
-          document.documentElement.classList.remove("dark");
-          document.documentElement.style.colorScheme = "light";
-        } else {
-          document.documentElement.classList.add("dark");
-          document.documentElement.style.colorScheme = "dark";
-        }
+        const theme =
+          storedTheme === "light" || storedTheme === "dark"
+            ? storedTheme
+            : prefersDark
+              ? "dark"
+              : "light";
+
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        document.documentElement.style.colorScheme = theme;
 
         const storedLocale = localStorage.getItem("locale");
-        const prefersRu = navigator.language.toLowerCase().startsWith("ru");
+        const languages =
+          navigator.languages && navigator.languages.length > 0
+            ? navigator.languages
+            : [navigator.language];
+        const prefersRu = languages.some(function (language) {
+          return language.toLowerCase().split("-")[0] === "ru";
+        });
         const locale =
           storedLocale === "en" || storedLocale === "ru"
             ? storedLocale

@@ -1,18 +1,12 @@
 import { CONTENT } from "../i18n/content";
 import { EXPERIENCE_ENTRIES } from "../i18n/experience";
 import type { Locale } from "../i18n/types";
-
-function getStoredLocale(): Locale {
-  const stored = localStorage.getItem("locale");
-  if (stored === "en" || stored === "ru") return stored;
-
-  return navigator.language.toLowerCase().startsWith("ru") ? "ru" : "en";
-}
+import { getPreferredLocale } from "./detect-preferences";
 
 export function getLocale(): Locale {
   const dataset = document.documentElement.dataset.locale;
   if (dataset === "en" || dataset === "ru") return dataset;
-  return getStoredLocale();
+  return getPreferredLocale();
 }
 
 function updateToggleUI(locale: Locale) {
@@ -189,7 +183,7 @@ export function setLocale(locale: Locale) {
 }
 
 export function initLanguage() {
-  const locale = getStoredLocale();
+  const locale = getPreferredLocale();
   document.documentElement.lang = locale;
   document.documentElement.dataset.locale = locale;
 

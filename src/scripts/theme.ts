@@ -13,12 +13,16 @@ function updateToggleUI() {
   toggle.dataset.theme = isDark ? "dark" : "light";
 }
 
-export function setTheme(theme: Theme) {
+function applyTheme(theme: Theme, persist = false) {
   document.documentElement.classList.toggle("dark", theme === "dark");
   document.documentElement.style.colorScheme = theme;
-  localStorage.setItem("theme", theme);
+  if (persist) localStorage.setItem("theme", theme);
   updateToggleUI();
   window.dispatchEvent(new CustomEvent("themechange", { detail: { theme } }));
+}
+
+export function setTheme(theme: Theme) {
+  applyTheme(theme, true);
 }
 
 export function initTheme() {
@@ -27,4 +31,13 @@ export function initTheme() {
   });
 
   updateToggleUI();
+
+  if (!localStorage.getItem("theme")) {
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (event) => {
+        if (localStorage.getItem("theme")) return;
+        applyTheme(event.matches ? "dark" : "light");
+      });
+  }
 }
